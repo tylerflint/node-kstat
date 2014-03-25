@@ -398,7 +398,7 @@ data_raw_sysinfo(kstat_t *ksp)
 
 	assert(ksp->ks_data_size == sizeof (sysinfo_t));
 
-	sysinfo_t	*sysinfo = (sysinfo_t *)(kp->ks_data);
+	sysinfo_t	*sysinfo = (sysinfo_t *)(ksp->ks_data);
 
 	data->Set(String::New("updates"), Integer::New(sysinfo->updates));
 	data->Set(String::New("runque"), Integer::New(sysinfo->runque));
@@ -417,7 +417,7 @@ data_raw_vminfo(kstat_t *ksp)
 
 	assert(ksp->ks_data_size == sizeof (vminfo_t));
 
-	vminfo_t	*vminfo = (vminfo_t *)(kp->ks_data);
+	vminfo_t	*vminfo = (vminfo_t *)(ksp->ks_data);
 
 	data->Set(String::New("freemem"), Integer::New(vminfo->freemem));
 	data->Set(String::New("swap_resv"), Integer::New(vminfo->swap_resv));
@@ -436,7 +436,7 @@ data_raw_mntinfo(kstat_t *ksp)
 
 	assert(ksp->ks_data_size == sizeof (struct mntinfo_kstat));
 
-	struct mntinfo_kstat *mntinfo = (struct mntinfo_kstat *)(kp->ks_data);
+	struct mntinfo_kstat *mntinfo = (struct mntinfo_kstat *)(ksp->ks_data);
 
 	data->Set(String::New("mntinfo"), String::New(mntinfo->mik_proto));
 	data->Set(String::New("mik_vers"), Integer::New(mntinfo->mik_vers));
@@ -474,7 +474,7 @@ data_raw(kstat_t *ksp)
 
 	assert(ksp->ks_type == KSTAT_TYPE_RAW);
 
-	switch (this->ksr_name) {
+	switch (ksp->ksr_name) {
 		case "cpu_stat":
 			data = data_raw_cpu_stat(ksp);
 			break;
