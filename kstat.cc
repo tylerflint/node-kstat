@@ -42,12 +42,12 @@ protected:
 private:
 	static string *stringMember(Local<Value>, char *, char *);
 	static int64_t intMember(Local<Value>, char *, int64_t);
-	Handle<Object> data_raw_cpu_stat(ksp);
-	Handle<Object> data_raw_var(ksp);
-	Handle<Object> data_raw_ncstats(ksp);
-	Handle<Object> data_raw_sysinfo(ksp);
-	Handle<Object> data_raw_vminfo(ksp);
-	Handle<Object> data_raw_mntinfo(ksp);
+	Handle<Object> data_raw_cpu_stat(kstat_t *);
+	Handle<Object> data_raw_var(kstat_t *);
+	Handle<Object> data_raw_ncstats(kstat_t *);
+	Handle<Object> data_raw_sysinfo(kstat_t *);
+	Handle<Object> data_raw_vminfo(kstat_t *);
+	Handle<Object> data_raw_mntinfo(kstat_t *);
 	Handle<Object> data_raw(kstat_t *);
 	Handle<Object> data_named(kstat_t *);
 	Handle<Object> data_intr(kstat_t *);
