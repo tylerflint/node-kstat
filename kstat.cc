@@ -339,7 +339,7 @@ data_raw_cpu_stat(kstat_t *ksp)
 	data->Set(String::New("fspgout"), Integer::New(vminfo->fspgout));
 	data->Set(String::New("fsfree"), Integer::New(vminfo->fsfree));
 
-	return data;
+	return (data);
 }
 
 Handle<Object>
@@ -367,7 +367,7 @@ data_raw_var(kstat_t *ksp)
 	data->Set(String::New("v_autoup"), Integer::New(var->v_autoup));
 	data->Set(String::New("v_bufhwm"), Integer::New(var->v_bufhwm));
 
-	return data;
+	return (data);
 }
 
 Handle<Object>
@@ -388,7 +388,7 @@ data_raw_ncstats(kstat_t *ksp)
 	data->Set(String::New("move_to_front"), Integer::New(ncstats->move_to_front));
 	data->Set(String::New("purges"), Integer::New(ncstats->purges));
 
-	return data;
+	return (data);
 }
 
 Handle<Object>
@@ -407,7 +407,7 @@ data_raw_sysinfo(kstat_t *ksp)
 	data->Set(String::New("swpocc"), Integer::New(sysinfo->swpocc));
 	data->Set(String::New("waiting"), Integer::New(sysinfo->waiting));
 
-	return data;
+	return (data);
 }
 
 Handle<Object>
@@ -426,7 +426,7 @@ data_raw_vminfo(kstat_t *ksp)
 	data->Set(String::New("swap_free"), Integer::New(vminfo->swap_free));
 	data->Set(String::New("updates"), Integer::New(vminfo->updates));
 
-	return data;
+	return (data);
 }
 
 Handle<Object>
@@ -464,7 +464,7 @@ data_raw_mntinfo(kstat_t *ksp)
 	data->Set(String::New("mik_remap"), Integer::New(mntinfo->mik_remap));
 	data->Set(String::New("mntinfo"), String::New(mntinfo->mik_curserver));
 
-	return data;
+	return (data);
 }
 
 Handle<Object>
@@ -474,29 +474,20 @@ data_raw(kstat_t *ksp)
 
 	assert(ksp->ks_type == KSTAT_TYPE_RAW);
 
-	switch (ksp->ks_name) {
-		case "cpu_stat":
-			data = data_raw_cpu_stat(ksp);
-			break;
-		case "var":
-			data = data_raw_var(ksp);
-			break;
-		case "ncstats":
-			data = data_raw_ncstats(ksp);
-			break;
-		case "sysinfo":
-			data = data_raw_sysinfo(ksp);
-			break;
-		case "vminfo":
-			data = data_raw_vminfo(ksp);
-			break;
-		case "mntinfo":
-			data = data_raw_mntinfo(ksp);
-			break;
-		default:
-			data = Object::New();
-			data->Set(String::New("Unknown"), String::New(ksp->ks_name));
-			break;
+	if (!strcmp(ksp->ks_name, "cpu_stat")) {
+		data = data_raw_cpu_stat(ksp);
+	} else if (!strcmp(ksp->ks_name, "var")) {
+		data = data_raw_var(ksp);
+	} else if (!strcmp(ksp->ks_name, "ncstats")) {
+		data = data_raw_ncstats(ksp);
+	} else if (!strcmp(ksp->ks_name, "sysinfo")) {
+		data = data_raw_sysinfo(ksp);
+	} else if (!strcmp(ksp->ks_name, "vminfo")) {
+		data = data_raw_vminfo(ksp);
+	} else if (!strcmp(ksp->ks_name, "mntinfo")) {
+		data = data_raw_mntinfo(ksp);
+	} else {
+		data = NULL;
 	}
 
 	return (data);
@@ -647,19 +638,26 @@ KStatReader::read(kstat_t *ksp)
 	switch(ksp->ks_type) {
 		case KSTAT_TYPE_RAW:
 			data = data_raw(ksp);
+			if (!data)
+				return (rval);
 			break;
+
 		case KSTAT_TYPE_NAMED:
 			data = data_named(ksp);
 			break;
+
 		case KSTAT_TYPE_INTR:
 			data = data_intr(ksp);
 			break;
+
 		case KSTAT_TYPE_IO:
 			data = data_io(ksp);
 			break;
+
 		case KSTAT_TYPE_TIMER:
 			data = data_timer(ksp);
 			break;
+
 		default:
 			return (rval);
 	}
