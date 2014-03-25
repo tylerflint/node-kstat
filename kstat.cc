@@ -638,8 +638,6 @@ KStatReader::read(kstat_t *ksp)
 	switch(ksp->ks_type) {
 		case KSTAT_TYPE_RAW:
 			data = data_raw(ksp);
-			if (!data)
-				return (rval);
 			break;
 
 		case KSTAT_TYPE_NAMED:
