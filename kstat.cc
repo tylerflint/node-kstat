@@ -225,7 +225,7 @@ KStatReader::error(const char *fmt, ...)
 }
 
 Handle<Object>
-data_raw_cpu_stat(kstat_t *ksp)
+KStatReader::data_raw_cpu_stat(kstat_t *ksp)
 {
 	Handle<Object> data = Object::New();
 
@@ -343,7 +343,7 @@ data_raw_cpu_stat(kstat_t *ksp)
 }
 
 Handle<Object>
-data_raw_var(kstat_t *ksp)
+KStatReader::data_raw_var(kstat_t *ksp)
 {
 	Handle<Object> data = Object::New();
 
@@ -371,7 +371,7 @@ data_raw_var(kstat_t *ksp)
 }
 
 Handle<Object>
-data_raw_ncstats(kstat_t *ksp)
+KStatReader::data_raw_ncstats(kstat_t *ksp)
 {
 	Handle<Object> data = Object::New();
 
@@ -392,7 +392,7 @@ data_raw_ncstats(kstat_t *ksp)
 }
 
 Handle<Object>
-data_raw_sysinfo(kstat_t *ksp)
+KStatReader::data_raw_sysinfo(kstat_t *ksp)
 {
 	Handle<Object> data = Object::New();
 
@@ -411,7 +411,7 @@ data_raw_sysinfo(kstat_t *ksp)
 }
 
 Handle<Object>
-data_raw_vminfo(kstat_t *ksp)
+KStatReader::data_raw_vminfo(kstat_t *ksp)
 {
 	Handle<Object> data = Object::New();
 
@@ -430,7 +430,7 @@ data_raw_vminfo(kstat_t *ksp)
 }
 
 Handle<Object>
-data_raw_mntinfo(kstat_t *ksp)
+KStatReader::data_raw_mntinfo(kstat_t *ksp)
 {
 	Handle<Object> data = Object::New();
 
@@ -468,7 +468,7 @@ data_raw_mntinfo(kstat_t *ksp)
 }
 
 Handle<Object>
-data_raw(kstat_t *ksp)
+KStatReader::data_raw(kstat_t *ksp)
 {
 	Handle<Object> data;
 
@@ -545,7 +545,7 @@ KStatReader::data_named(kstat_t *ksp)
 }
 
 Handle<Object>
-data_intr(kstat_t *ksp)
+KStatReader::data_intr(kstat_t *ksp)
 {
 	Handle<Object> data = Object::New();
 	kstat_intr_t *intr = KSTAT_INTR_PTR(ksp);
@@ -589,7 +589,7 @@ KStatReader::data_io(kstat_t *ksp)
 }
 
 Handle<Object> 
-data_timer(kstat_t *ksp)
+KStatReader::data_timer(kstat_t *ksp)
 {
 	Handle<Object> data = Object::New();
 	kstat_timer_t *timer = KSTAT_TIMER_PTR(ksp);
