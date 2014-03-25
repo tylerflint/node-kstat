@@ -487,7 +487,7 @@ data_raw(kstat_t *ksp)
 	} else if (!strcmp(ksp->ks_name, "mntinfo")) {
 		data = data_raw_mntinfo(ksp);
 	} else {
-		data = NULL;
+		data = Object::New();
 	}
 
 	return (data);
