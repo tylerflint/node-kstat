@@ -474,7 +474,7 @@ data_raw(kstat_t *ksp)
 
 	assert(ksp->ks_type == KSTAT_TYPE_RAW);
 
-	switch (ksp->ksr_name) {
+	switch (ksp->ks_name) {
 		case "cpu_stat":
 			data = data_raw_cpu_stat(ksp);
 			break;
